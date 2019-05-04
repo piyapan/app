@@ -1,12 +1,9 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: docker
+FROM python:3.7.3 AS base
+ADD requirements.txt requirements.txt
+RUN apt-get update -y && pip install -r requirements.txt && mkdir -p /code
 
-    steps:
-      - checkout
-
-      - run:
-          name: build
-          command: docker build -t  subaruqui/app:laste
+FROM base
+ADD . /code
+WORKDIR /code
+ENTRYPOINT ['/code/docker-entrypoint.sh']
+CMD python manage.py runserver

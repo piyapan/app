@@ -1,12 +1,15 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: docker
-
+    machine: true
     steps:
       - checkout
-
+      - run:
+          name: Login docker registry
+          command: docker login -u $USER_DOCKER -p $PASS_DOCKER
       - run:
           name: build
-          command: docker build -t subaruqui/app:develop .
+          command: docker build -t subaruqui/app:$CIRCLE_BRANCH .
+      - run:
+          name: Push docker image
+          command: docker push subaruqui/app:$CIRCLE_BRANCH

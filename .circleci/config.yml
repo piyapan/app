@@ -6,7 +6,7 @@ jobs:
       - checkout
       - run:
           name: Login docker registry
-          command: docker login -u $USER_DOCKER -p $PASS_DOCKER
+          command: docker login -u $USER_DOCKER --password $PASS_DOCKER
       - run:
           name: build
           command: docker build -t subaruqui/app:$CIRCLE_BRANCH .

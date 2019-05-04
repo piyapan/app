@@ -1,0 +1,5 @@
+db.sqlite3
+app/local_settings.py
+.idea
+*.pyc
+__pycache__
